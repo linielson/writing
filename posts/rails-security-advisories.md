@@ -1,8 +1,9 @@
 ---
-title: "44 Rails advisories broke my CI on a PR that didn't touch a single gem"
+title: 44 Rails advisories broke my CI on a PR that didn't touch a single gem
 published: false
-description: "New advisories for Rails 8.1, rack and nokogiri turned my build red with no code change. What I found, how I fixed it, and how to make your CI catch it on its own."
-tags: ruby, rails, security, devops
+description: 'New advisories for Rails 8.1, rack and nokogiri turned my build red with no code change. What I found, how I fixed it, and how to make your CI catch it on its own.'
+tags: 'ruby, rails, security, devops'
+id: 4983552
 ---
 
 I was finishing the authentication PR for [Ledgerly](https://github.com/linielson/ledgerly), an invoicing app I'm
