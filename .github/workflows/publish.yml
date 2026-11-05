@@ -1,0 +1,39 @@
+name: Publish to dev.to
+
+# This repository is the source of truth: every post lives in posts/ as Markdown with front matter, and a push to main
+# creates or updates the matching dev.to article. Posts stay drafts on dev.to until their front matter says
+# `published: true`.
+on:
+  push:
+    branches: [main]
+    paths: ["posts/**"]
+  workflow_dispatch:
+
+# One run at a time: two overlapping runs could both create the same new article before either writes its id back.
+concurrency:
+  group: publish-devto
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    # Writes the dev.to article id (and the publication date) back into the post's front matter, so the next push
+    # updates the article instead of creating a duplicate.
+    permissions:
+      contents: write
+    env:
+      DEVTO_TOKEN: ${{ secrets.DEVTO_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Without the secret (a fork, or before it is configured) the job skips instead of failing.
+      - name: Publish posts
+        if: env.DEVTO_TOKEN != ''
+        uses: sinedied/publish-devto@c713cc0934b35cb3df9fca759b98e36e6a540a85 # v2
+        with:
+          devto_key: ${{ env.DEVTO_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: "posts/**/*.md"
+          branch: main
