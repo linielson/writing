@@ -29,6 +29,9 @@ where the posts are read, and this is where they are written, reviewed and versi
 
    dev.to accepts up to four tags, lowercase, letters and numbers only.
 
+   **Write each paragraph, list item and quote on a single line.** dev.to turns every line break into a visible one,
+   so text wrapped at a fixed width shows up broken into short lines. Code blocks are the exception.
+
 2. Push to `main`, check the draft on dev.to, then flip `published` to `true` and push.
 
 Editing the article on dev.to directly works, but the next push from here overwrites it. Edit here.
